@@ -7,6 +7,9 @@ import {
 } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useState } from "react";
+import { router } from "expo-router";
+import { pageNames } from "../utils/pageNames";
+import { getGlobalStyles } from "../globalStyles";
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
@@ -15,11 +18,9 @@ export default function Login() {
   const iconsSize: number = 24;
   const iconsColor: string = "black";
 
+  const globalStyles = getGlobalStyles();
+
   const style = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: "row",
-    },
     mainContent: {
       height: "100%",
       justifyContent: "center",
@@ -48,8 +49,8 @@ export default function Login() {
       width: "100%",
       height: "100%",
       outlineStyle: "none" as any,
-      fontSize: 20,
       paddingHorizontal: 10,
+      fontSize: 16,
     },
     icon: {
       width: 25,
@@ -60,10 +61,7 @@ export default function Login() {
       width: "100%",
       maxWidth: 300,
       height: 50,
-      padding: 15,
       borderRadius: 20,
-      borderWidth: 1,
-      borderColor: "#aaa",
       backgroundColor: "#6e5bff",
     },
     loginButtonText: {
@@ -74,7 +72,7 @@ export default function Login() {
   });
 
   return (
-    <View style={style.container}>
+    <View style={[globalStyles.container, { flexDirection: "row" }]}>
       <View style={[style.mainContent, { flex: 1, backgroundColor: "#eee" }]}>
         <Text style={style.title}>ECOMMERCE PREDITIVO</Text>
         <View style={style.inputContainer}>
@@ -113,7 +111,12 @@ export default function Login() {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={style.loginButton}>
+        <TouchableOpacity
+          style={style.loginButton}
+          onPress={() => {
+            router.push(pageNames.pages.mainMenu);
+          }}
+        >
           <Text style={style.loginButtonText}>LOGIN</Text>
         </TouchableOpacity>
       </View>
