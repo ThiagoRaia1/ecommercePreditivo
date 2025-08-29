@@ -5,6 +5,7 @@ import {
   StyleSheet,
   useWindowDimensions,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import { Link } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -13,6 +14,7 @@ import { pageNames } from "../../utils/pageNames";
 
 export default function TopMenu() {
   const { width } = useWindowDimensions();
+  const textIconMainColor = "white";
 
   // Define altura dinâmica
   const defineTopMenuHeight = () => {
@@ -40,16 +42,39 @@ export default function TopMenu() {
       flex: 1,
       flexDirection: "row",
       width: "100%",
-      backgroundColor: "yellow",
       gap: 16,
+    },
+    adressView: {
+      flexDirection: "row",
+      height: "100%",
+      width: 150,
+      alignItems: "center",
+      gap: 5,
+      overflow: "hidden",
     },
     adressText: {
       fontSize: 12,
+      fontWeight: 700,
+      color: textIconMainColor,
     },
     rightContentRow: {
       backgroundColor: "blue",
       width: "100%",
       flex: 1,
+    },
+    middleContentRowButton: {
+      paddingHorizontal: 10,
+      height: "75%",
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 5,
+      borderWidth: 1,
+      borderColor: "#003A6A",
+    },
+    middleContentRowButtonText: {
+      fontSize: 13,
+      fontWeight: 500,
+      color: textIconMainColor,
     },
   });
 
@@ -65,25 +90,28 @@ export default function TopMenu() {
           alignItems: "center",
         }}
       >
-        <Text>Logo</Text>
+        <Text style={{ textAlign: "center" }}>{"Logo\nPlaceholder"}</Text>
       </View>
 
       {/* Container das linhas do meio */}
-      <View style={{ flex: 1, height: "100%", gap: 10 }}>
+      <View
+        style={{
+          flex: 1,
+          height: "100%",
+          gap: 10,
+          alignContent: "space-evenly",
+        }}
+      >
         {/* Linha Superior */}
         <View style={styles.middleContentRow}>
           {/* Endereço */}
-          <View
-            style={{
-              flexDirection: "row",
-              height: "100%",
-              width: 150,
-              backgroundColor: "#ccc",
-              alignItems: "center",
-              gap: 5,
-            }}
-          >
-            <MaterialIcons name="place" size={24} color="black" />
+          <View style={styles.adressView}>
+            <MaterialIcons
+              name="place"
+              size={24}
+              color={textIconMainColor}
+              style={{ marginLeft: -5 }}
+            />
             <View>
               <Text style={styles.adressText}>{"Enviar para\n"}</Text>
               <Link
@@ -97,57 +125,140 @@ export default function TopMenu() {
             </View>
           </View>
           {/* Barra de pesquisa */}
-          <View
+          <TextInput
             style={{
               flex: 1,
               height: "100%",
               justifyContent: "center",
-              backgroundColor: "red",
+              borderRadius: 5,
+              backgroundColor: "#fff",
+              paddingHorizontal: 10,
             }}
-          >
-            <Text>Barra de pesquisa</Text>
-          </View>
+          ></TextInput>
         </View>
 
         {/* Linha inferior */}
-        <View style={styles.middleContentRow}>
+        <View style={[styles.middleContentRow, { alignItems: "flex-end" }]}>
+          {/* Departamentos */}
           <TouchableOpacity
-            style={{
-              width: 150,
-              height: "100%",
-              backgroundColor: "#fff",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            style={[
+              styles.middleContentRowButton,
+              { width: 150, borderWidth: 1, borderColor: textIconMainColor },
+            ]}
           >
+            {/* View para juntar o texto com o ícone de dropdown */}
             <View
               style={{
                 flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "red",
                 gap: 5,
               }}
             >
               <Text
-                style={{
-                  fontWeight: 600,
-                  // color: "white",
-                  textAlignVertical: "center",
-                }}
+                style={[
+                  styles.middleContentRowButtonText,
+                  {
+                    fontSize: 13,
+                    fontWeight: 700,
+                  },
+                ]}
               >
                 Departamentos
               </Text>
               <Entypo
                 name="chevron-down"
                 size={15}
-                color="black"
+                color={textIconMainColor}
                 style={{
                   height: "100%",
                   alignContent: "flex-end",
                 }}
               />
             </View>
+          </TouchableOpacity>
+
+          {/* Cupons */}
+          <TouchableOpacity
+            style={[
+              styles.middleContentRowButton,
+              {
+                backgroundColor: "#FF6500",
+                borderWidth: 0,
+                paddingHorizontal: 15,
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.middleContentRowButtonText,
+                {
+                  fontSize: 13,
+                  fontWeight: 700,
+                },
+              ]}
+            >
+              Cupons
+            </Text>
+          </TouchableOpacity>
+
+          {/* Mais vendidos */}
+          <TouchableOpacity
+            style={[
+              styles.middleContentRowButton,
+              {
+                backgroundColor: "#003A6A",
+                borderWidth: 0,
+                paddingHorizontal: 15,
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.middleContentRowButtonText,
+                {
+                  fontSize: 13,
+                  fontWeight: 700,
+                },
+              ]}
+            >
+              Mais vendidos
+            </Text>
+          </TouchableOpacity>
+
+          {/* Venda no KaBum! */}
+          <TouchableOpacity style={styles.middleContentRowButton}>
+            <Text style={styles.middleContentRowButtonText}>
+              Venda no KaBum!
+            </Text>
+          </TouchableOpacity>
+
+          {/* Hardware */}
+          <TouchableOpacity style={styles.middleContentRowButton}>
+            <Text style={styles.middleContentRowButtonText}>Hardware</Text>
+          </TouchableOpacity>
+
+          {/* PC Gamer */}
+          <TouchableOpacity style={styles.middleContentRowButton}>
+            <Text style={styles.middleContentRowButtonText}>PC Gamer</Text>
+          </TouchableOpacity>
+
+          {/* Computadores */}
+          <TouchableOpacity style={styles.middleContentRowButton}>
+            <Text style={styles.middleContentRowButtonText}>Computadores</Text>
+          </TouchableOpacity>
+
+          {/* Periféricos */}
+          <TouchableOpacity style={styles.middleContentRowButton}>
+            <Text style={styles.middleContentRowButtonText}>Periféricos</Text>
+          </TouchableOpacity>
+
+          {/* Escritório */}
+          <TouchableOpacity style={styles.middleContentRowButton}>
+            <Text style={styles.middleContentRowButtonText}>Escritório</Text>
+          </TouchableOpacity>
+
+          {/* Blog KaBum! */}
+          <TouchableOpacity style={styles.middleContentRowButton}>
+            <Text style={styles.middleContentRowButtonText}>Blog KaBum!</Text>
           </TouchableOpacity>
         </View>
       </View>
